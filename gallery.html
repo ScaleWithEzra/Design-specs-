@@ -91,6 +91,12 @@ body{font-family:var(--font);background:var(--canvas);color:var(--text);
 :root[data-theme="dark"] .themebtn .sw{background:var(--accent);}
 :root[data-theme="dark"] .themebtn .sw::after{transform:translateX(14px);}
 
+.back-link{display:inline-flex;align-items:center;gap:7px;margin-top:14px;margin-bottom:4px;font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s var(--ease);font-weight:500;padding:0;}
+.back-link:hover{color:var(--text);}
+@media(max-width:880px){
+  .back-link{margin-top:0;margin-bottom:14px;}
+}
+
 /* main */
 .main{flex:1;min-width:0;max-width:1080px;margin:0 auto;padding:0 40px 140px;}
 .hero{padding:64px 0 30px;border-bottom:1px solid var(--border);}
@@ -295,10 +301,21 @@ body{font-family:var(--font);background:var(--canvas);color:var(--text);
   .side{display:none;}
   .main{padding:0 22px 120px;}
 }
+
+@media (max-width:880px) {
+  [style*="position:fixed"][style*="top:0"] { display: flex !important; }
+  .main { padding-top: 56px; }
+}
 </style>
 </head>
 <body>
 <div class="layout">
+  <!-- MOBILE HEADER -->
+  <div style="display:none;position:fixed;top:0;left:0;right:0;height:56px;background:var(--surface);border-bottom:1px solid var(--border);align-items:center;padding:0 16px;gap:8px;z-index:1000">
+    <a href="../../index.html" style="flex:none;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--text);text-decoration:none;transition:color .2s var(--ease);padding:8px 12px;border-radius:var(--r-sm);margin-right:auto" onmouseover="this.style.background='var(--surface-hover)'" onmouseout="this.style.background='transparent'">← Back</a>
+    <span style="font-size:14px;font-weight:600;color:var(--text)">Gallery</span>
+  </div>
+
 
   <!-- ================= SIDEBAR ================= -->
   <aside class="side">
@@ -310,6 +327,7 @@ body{font-family:var(--font);background:var(--canvas);color:var(--text);
       <a class="on" href="gallery.html">Gallery</a>
       <a href="primitives.html">Primitives</a>
     </div>
+    <a href="../../index.html" style="display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s;font-weight:500" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">← The Library</a>
 
     <div class="navlbl">Foundations</div>
     <a class="navlink active" href="#colors"><span class="dot"></span>Color</a>
