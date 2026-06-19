@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Design Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F4F4F8; --surface:#FFFFFF; --surface-sunken:#EDEDF2; --surface-hover:#F7F7FB;
+  --border:rgba(17,17,19,.06); --border-strong:rgba(17,17,19,.10);
+  --text:#1C1C1E; --muted:#6E6E78; --faint:#A4A4AF;
+  --ink:#1C1C1E; --on-ink:#FFFFFF;
+  --accent:#34B36B; --accent-hover:#2C9E5E; --accent-tint:#E8F6EE;
+  --info:#4F86EE; --warning:#E0A93C; --danger:#E5492C;
+  --data-green:#3FB970; --data-lime:#A6E542;
+  --r-sm:12px; --r-md:16px; --r-lg:20px; --r-xl:24px; --r-2xl:28px; --r-full:999px;
+  --shadow-card:0 1px 2px rgba(17,17,19,.04), 0 8px 20px rgba(17,17,19,.05);
+  --shadow-float:0 10px 30px rgba(17,17,19,.12), 0 2px 8px rgba(17,17,19,.06);
+  --shadow-lift:0 18px 50px rgba(17,17,19,.10), 0 4px 14px rgba(17,17,19,.06);
+  --glass-bg:rgba(255,255,255,.82); --glass-border:rgba(255,255,255,.6);
+  --spring:cubic-bezier(0.34,1.45,0.64,1);
+  --bounce:cubic-bezier(0.34,1.56,0.64,1);
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --font:"Inter",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,system-ui,sans-serif;
+}
+:root[data-theme="dark"]{
+  --canvas:#0E0E11; --surface:#1A1A1F; --surface-sunken:#141417; --surface-hover:#222228;
+  --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.12);
+  --text:#F2F2F5; --muted:#A0A0AB; --faint:#6B6B76;
+  --ink:#F2F2F5; --on-ink:#1C1C1E;
+  --accent:#3FC579; --accent-tint:rgba(63,197,121,.14);
+  --info:#6B9BF2; --warning:#E8BE5A; --danger:#F0664B;
+  --shadow-card:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.45);
+  --shadow-float:0 6px 24px rgba(0,0,0,.5);
+  --shadow-lift:0 24px 60px rgba(0,0,0,.55),0 6px 18px rgba(0,0,0,.4);
+  --glass-bg:rgba(36,36,42,.78); --glass-border:rgba(255,255,255,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-font-smoothing:antialiased;
+  line-height:1.5;min-height:100vh;position:relative;overflow-x:hidden;}
+
+/* ambient accent glow — the one experimental flourish */
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.glow::before{content:"";position:absolute;top:-260px;left:50%;transform:translateX(-50%);
+  width:1100px;height:620px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(52,179,107,.20),rgba(52,179,107,0) 70%);
+  filter:blur(8px);}
+.glow::after{content:"";position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(79,134,238,.14),rgba(79,134,238,0) 70%);}
+
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 32px 120px;}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand .mk{width:38px;height:38px;border-radius:12px;background:var(--ink);position:relative;box-shadow:var(--shadow-card);}
+.brand .mk::before{content:"";position:absolute;inset:11px;border-radius:99px;background:var(--accent);}
+.brand .t{font-size:15px;font-weight:600;letter-spacing:-.01em;}
+.brand .s{font-size:12px;color:var(--muted);margin-top:1px;}
+.barright{display:flex;align-items:center;gap:10px;}
+.pillbtn{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--text);
+  background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:8px 14px;
+  box-shadow:var(--shadow-card);cursor:pointer;}
+.pillbtn .sw{width:30px;height:18px;border-radius:99px;background:var(--border-strong);position:relative;transition:background .2s var(--ease);}
+.pillbtn .sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:99px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .26s var(--spring);}
+:root[data-theme="dark"] .pillbtn .sw{background:var(--accent);}
+:root[data-theme="dark"] .pillbtn .sw::after{transform:translateX(12px);}
+
+/* hero */
+.hero{padding:54px 0 30px;}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;
+  color:var(--accent);background:var(--accent-tint);padding:7px 13px;border-radius:99px;}
+.kicker .live{width:7px;height:7px;border-radius:99px;background:var(--accent);box-shadow:0 0 0 0 rgba(52,179,107,.5);animation:pulse 2.4s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,179,107,.45);}70%{box-shadow:0 0 0 9px rgba(52,179,107,0);}100%{box-shadow:0 0 0 0 rgba(52,179,107,0);}}
+.hero h1{font-size:54px;font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-top:20px;max-width:720px;}
+.hero h1 .em{color:var(--accent);}
+.hero p{font-size:17px;color:var(--muted);margin-top:18px;max-width:560px;line-height:1.6;}
+.stats{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap;}
+.stat .n{font-size:26px;font-weight:700;letter-spacing:-.02em;}
+.stat .k{font-size:12.5px;color:var(--muted);margin-top:2px;}
+.stat .n .u{font-size:14px;color:var(--muted);font-weight:500;}
+
+/* styles section */
+.shead{display:flex;align-items:baseline;justify-content:space-between;margin:54px 0 20px;}
+.shead h2{font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);}
+.shead .lane{font-size:12.5px;color:var(--muted);}
+
+.styles{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));}
+
+/* a style card */
+.style{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-card);overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;
+  transition:transform .3s var(--spring),box-shadow .3s var(--ease);}
+.style.live{cursor:pointer;}
+.style.live:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);}
+.style .preview{height:208px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);
+  background:var(--canvas);display:flex;align-items:center;justify-content:center;padding:22px;}
+
+/* clean & modern mini preview */
+.cm-stack{width:236px;display:flex;flex-direction:column;gap:11px;transform:scale(1);}
+.cm-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 13px;box-shadow:var(--shadow-card);}
+.cm-card .lab{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--muted);}
+.cm-card .lab .d{width:6px;height:6px;border-radius:99px;background:var(--accent);}
+.cm-card .val{display:flex;align-items:baseline;gap:3px;margin-top:6px;}
+.cm-card .val .n{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1;}
+.cm-card .val .u{font-size:11px;color:var(--muted);font-weight:500;}
+.cm-card .chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--accent);margin-top:6px;}
+.cm-card .chip .d{width:5px;height:5px;border-radius:99px;background:var(--accent);}
+.cm-row{display:flex;gap:11px;}
+.cm-row .cm-card{flex:1;}
+.cm-dock{display:flex;align-items:center;gap:8px;background:var(--glass-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--glass-border);border-radius:22px;box-shadow:var(--shadow-float);padding:9px 10px;}
+.cm-dock .home{width:32px;height:32px;border-radius:99px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;}
+.cm-dock .home svg{fill:var(--ink);}
+.cm-dock .ask{flex:1;display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);}
+.cm-dock .ask .mini{width:18px;height:18px;border-radius:99px;background:radial-gradient(circle at 60% 40%,#bfe7cf,#74c08a);}
+.cm-dock .plus{width:32px;height:32px;border-radius:99px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;color:var(--text);}
+
+/* generative art teaser preview */
+.gen{position:absolute;inset:0;background:#0b0b10;}
+.gen::before{content:"";position:absolute;inset:-20%;
+  background:conic-gradient(from 0deg,#E9B44C,#F2784B,#E84C6B,#8B7CF6,#4EA8E9,#E9B44C);
+  filter:blur(30px);opacity:.6;animation:spin 14s linear infinite;}
+.gen::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 50% 120%,rgba(11,11,16,0),rgba(11,11,16,.9));}
+@keyframes spin{to{transform:rotate(360deg);}}
+.gen-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px;}
+
+/* new-style ghost */
+.style.ghost{background:transparent;border:1.5px dashed var(--border-strong);box-shadow:none;align-items:center;justify-content:center;
+  min-height:330px;color:var(--muted);}
+.style.ghost .plusbig{width:46px;height:46px;border-radius:99px;background:var(--surface);border:1px solid var(--border);
+  display:grid;place-items:center;box-shadow:var(--shadow-card);color:var(--text);}
+.style.ghost .gt{font-size:14px;font-weight:600;margin-top:14px;color:var(--text);}
+.style.ghost .gs{font-size:12.5px;margin-top:4px;}
+
+/* card body */
+.style .body{padding:18px 18px 20px;display:flex;flex-direction:column;flex:1;}
+.style .ttl{display:flex;align-items:center;gap:9px;}
+.style .ttl h3{font-size:18px;font-weight:700;letter-spacing:-.02em;}
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;letter-spacing:.01em;}
+.badge.ready{color:var(--accent);background:var(--accent-tint);}
+.badge.soon{color:var(--warning);background:rgba(224,169,60,.14);}
+.style .desc{font-size:13.5px;color:var(--muted);margin-top:9px;line-height:1.55;flex:1;}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px;}
+.tag{font-size:11.5px;font-weight:500;color:var(--muted);background:var(--surface-sunken);border-radius:99px;padding:5px 10px;}
+.go{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:15px;border-top:1px solid var(--border);}
+.go .meta{font-size:12px;color:var(--faint);}
+.go .cta{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--text);}
+.go .cta svg{transition:transform .25s var(--spring);}
+.style.live:hover .go .cta svg{transform:translateX(4px);}
+
+.footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.footer .l{font-size:12.5px;color:var(--muted);}
+.footer .r{font-size:12px;color:var(--faint);}
+
+@media (max-width:640px){.wrap{padding:0 20px 90px;}.hero h1{font-size:40px;}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+
+  <!-- top bar -->
+  <div class="bar">
+    <div class="brand">
+      <div class="mk"></div>
+      <div><div class="t">Design Library</div><div class="s">Ezra · personal styles</div></div>
+    </div>
+    <div class="barright">
+      <button class="pillbtn" onclick="toggleTheme()"><span id="themeText">Dark</span><span class="sw"></span></button>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <header class="hero">
+    <span class="kicker"><span class="live"></span>Your styles, ready to reuse</span>
+    <h1>A home for your <span class="em">design styles</span>.</h1>
+    <p>Every project — yours or an AI's — starts from your high-quality look instead of a generic default. Pick a style, browse its foundations and components, then drop it into anything.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">2</div><div class="k">Styles ready</div></div>
+      <div class="stat"><div class="n">20<span class="u"> +</span></div><div class="k">Primitives + signatures</div></div>
+      <div class="stat"><div class="n">React</div><div class="k">+ Tailwind + Motion</div></div>
+    </div>
+  </header>
+
+  <!-- styles -->
+  <div class="shead">
+    <h2>Styles</h2>
+    <span class="lane">Consistent / product lane</span>
+  </div>
+
+  <div class="styles">
+
+    <!-- CLEAN & MODERN (live) -->
+    <a class="style live" href="gallery.html">
+      <div class="preview">
+        <div class="cm-stack">
+          <div class="cm-row">
+            <div class="cm-card">
+              <div class="lab"><span class="d"></span>RHR</div>
+              <div class="val"><span class="n">65.7</span><span class="u">bpm</span></div>
+              <div class="chip"><span class="d"></span>Normal</div>
+            </div>
+            <div class="cm-card">
+              <div class="lab"><span class="d" style="background:var(--info)"></span>HRV</div>
+              <div class="val"><span class="n">25.0</span><span class="u">ms</span></div>
+              <div class="chip" style="color:var(--warning)"><span class="d" style="background:var(--warning)"></span>Lower</div>
+            </div>
+          </div>
+          <div class="cm-dock">
+            <div class="home"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></div>
+            <div class="ask"><span class="mini"></span>Ask anything</div>
+            <div class="plus"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="ttl"><h3>Clean &amp; Modern</h3><span class="badge ready">Ready</span></div>
+        <p class="desc">Calm, premium, native-feeling. Monochrome neutral chrome, one green accent, depth from contrast, big quiet numerals, and a single signature bounce.</p>
+        <div class="tags"><span class="tag">Monochrome + accent</span><span class="tag">Inter</span><span class="tag">Soft elevation</span></div>
+        <div class="go"><span class="meta">Foundations · primitives · signatures</span><span class="cta">Browse style <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+
+    <!-- EXPERIMENTAL · SPECIMENS (live) -->
+    <a class="style live" href="specimens.html">
+      <div class="preview"><div class="gen"><div class="gen-grid"></div></div></div>
+      <div class="body">
+        <div class="ttl"><h3>Specimens</h3><span class="badge ready">Live</span></div>
+        <p class="desc">The experimental lane — a cabinet of living generative organisms. Flow fields, cell colonies, coral growth, reaction-diffusion, and fractal plants, all drawn in real time.</p>
+        <div class="tags"><span class="tag">Generative</span><span class="tag">Canvas · real-time</span><span class="tag">Nature × code</span></div>
+        <div class="go"><span class="meta">Experimental lane · Cabinet I</span><span class="cta">Enter the cabinet <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+
+    <!-- NEW STYLE ghost -->
+    <div class="style ghost">
+      <div class="plusbig"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+      <div class="gt">New style</div>
+      <div class="gs">Scaffold from _template/</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="l">One style at a time. Build it, dogfood it, reuse it everywhere.</span>
+    <span class="r">Runs locally · ready for Netlify</span>
+  </div>
+
+</div>
+
+<script>
+function toggleTheme(){
+  const r=document.documentElement;
+  const dark=r.getAttribute('data-theme')==='dark';
+  if(dark){r.removeAttribute('data-theme');document.getElementById('themeText').textContent='Dark';}
+  else{r.setAttribute('data-theme','dark');document.getElementById('themeText').textContent='Light';}
+}
+</script>
+</body>
+</html>
