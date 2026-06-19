@@ -6,7 +6,7 @@
 <title>Specimens — Generative Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* =====================================================================
    SPECIMENS — re-chromed on the CLEAN & MODERN baseline.
@@ -159,6 +159,16 @@ body{background:var(--canvas);color:var(--text);font-family:var(--font);-webkit-
 .sld input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}
 .mhint{font-size:12px;color:var(--text-tertiary);margin-top:16px}
 
+/* ---- modal: render-mode tabs (Botanica) ---- */
+.modes{margin-top:18px;display:none;flex-direction:column;gap:14px}
+.modetabs{display:inline-flex;align-self:flex-start;background:var(--surface-sunken);
+  border-radius:var(--r-full);padding:4px;gap:4px}
+.modetabs .mt{font:inherit;font-size:12.5px;font-weight:600;color:var(--text-secondary);background:none;
+  border:none;padding:7px 16px;border-radius:var(--r-full);cursor:pointer;
+  transition:background .25s var(--spring),color .2s}
+.modetabs .mt:hover{color:var(--text)}
+.modetabs .mt.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-card)}
+
 @media (max-width:920px){
   .grid,.future{grid-template-columns:repeat(2,1fr)}
   .head h2{font-size:38px}
@@ -218,7 +228,7 @@ body{background:var(--canvas);color:var(--text);font-family:var(--font);-webkit-
   <!-- THE CABINET -->
   <div class="sec">
     <h3>The Cabinet</h3>
-    <span class="meta">Seven specimens · drawn live</span>
+    <span class="meta">Nine specimens · drawn live</span>
   </div>
 
   <div class="grid">
@@ -279,6 +289,22 @@ body{background:var(--canvas);color:var(--text);font-family:var(--font);-webkit-
       </figcaption>
     </figure>
 
+    <figure class="plate" data-anim="botany" data-key="botany">
+      <div class="stage"><span class="badge">expand · particles / pixels / ascii</span><canvas id="cv-botany"></canvas></div>
+      <figcaption class="lab">
+        <div><div class="pl">Plate 08 · Botanica</div><h4>The Bloom</h4><div class="nm">A particle flower that dissolves into pixels, then into ASCII — one organism, three materials.</div></div>
+        <span class="idx">08</span>
+      </figcaption>
+    </figure>
+
+    <figure class="plate" data-anim="crystal" data-key="crystal">
+      <div class="stage"><span class="badge">cursor pulls a seed</span><canvas id="cv-crystal"></canvas></div>
+      <figcaption class="lab">
+        <div><div class="pl">Plate 09 · Vitrum</div><h4>The Lattice</h4><div class="nm">A Voronoi stained glass that never sets — facets shearing past each other in slow motion.</div></div>
+        <span class="idx">09</span>
+      </figcaption>
+    </figure>
+
   </div>
 
   <!-- FUTURE CABINETS -->
@@ -289,36 +315,30 @@ body{background:var(--canvas);color:var(--text);font-family:var(--font);-webkit-
   <div class="future">
     <div class="fcard">
       <div class="tag">Cabinet II</div>
-      <h4>Crystalline</h4>
-      <p>Order instead of organism — tessellation, lattice, moiré, isometric structure and the quiet violence of a grid decaying.</p>
-      <div class="chips"><span class="fchip">Voronoi</span><span class="fchip">moiré</span><span class="fchip">lattice</span></div>
-    </div>
-    <div class="fcard">
-      <div class="tag">Cabinet III</div>
       <h4>Liquid</h4>
       <p>Everything wet — metaballs, caustics, viscous fields and the slow merge of one blob into another.</p>
       <div class="chips"><span class="fchip">metaballs</span><span class="fchip">caustics</span><span class="fchip">fluid</span></div>
     </div>
     <div class="fcard">
-      <div class="tag">Cabinet IV</div>
+      <div class="tag">Cabinet III</div>
       <h4>Typographic</h4>
       <p>Letterforms as material — type-as-texture, kinetic glyphs, variable-font fields that bend to a cursor.</p>
       <div class="chips"><span class="fchip">kinetic type</span><span class="fchip">variable fonts</span></div>
     </div>
     <div class="fcard">
-      <div class="tag">Cabinet V</div>
+      <div class="tag">Cabinet IV</div>
       <h4>Celestial</h4>
       <p>Gravity made visible — orbits, n-body drift, particle galaxies and the long arc of things falling toward each other.</p>
       <div class="chips"><span class="fchip">n-body</span><span class="fchip">orbits</span><span class="fchip">fields</span></div>
     </div>
     <div class="fcard">
-      <div class="tag">Cabinet VI</div>
+      <div class="tag">Cabinet V</div>
       <h4>Woven</h4>
       <p>Generative craft — textiles, knots, weaving drafts and the over-under logic of a loom turned into code.</p>
       <div class="chips"><span class="fchip">weaving</span><span class="fchip">knots</span><span class="fchip">pattern</span></div>
     </div>
     <div class="fcard">
-      <div class="tag">Cabinet VII</div>
+      <div class="tag">Cabinet VI</div>
       <h4>Terrain</h4>
       <p>Worlds from noise — contour maps, erosion, drainage networks and coastlines that never existed.</p>
       <div class="chips"><span class="fchip">noise</span><span class="fchip">erosion</span><span class="fchip">contours</span></div>
@@ -347,6 +367,14 @@ body{background:var(--canvas);color:var(--text);font-family:var(--font);-webkit-
         <div class="sld"><label>b <b id="lab-b">0</b></label><input type="range" id="sl-b" min="-3" max="3" step="0.01"></div>
         <div class="sld"><label>c <b id="lab-c">0</b></label><input type="range" id="sl-c" min="-3" max="3" step="0.01"></div>
         <div class="sld"><label>d <b id="lab-d">0</b></label><input type="range" id="sl-d" min="-3" max="3" step="0.01"></div>
+      </div>
+      <div class="modes" id="m-modes">
+        <div class="modetabs">
+          <button class="mt active" data-mode="particles">Particles</button>
+          <button class="mt" data-mode="pixels">Pixels</button>
+          <button class="mt" data-mode="ascii">ASCII</button>
+        </div>
+        <div class="sld"><label>Step <b id="lab-step">9</b></label><input type="range" id="sl-step" min="5" max="20" step="1"></div>
       </div>
       <div class="grammar" id="m-grammar"></div>
       <div class="mhint" id="m-hint"></div>
@@ -392,6 +420,9 @@ function pointer(cv){const p={x:-1e4,y:-1e4,on:false};
 
 /* shared tunable grammar (the Attractor exposes these to the modal sliders) */
 const CLIFF={a:-1.7,b:1.8,c:-1.9,d:-0.4,dirty:true};
+
+/* shared render state for Botanica (modal mode-tabs + Step slider) */
+const BOTANY={mode:'particles',step:9};
 
 /* registry + visibility-gated runner (grid pieces) */
 const runners={};
@@ -688,6 +719,141 @@ register('murmur',(el)=>{
 });
 
 /* =========================================================================
+   08 · BOTANICA — particle flower that dissolves into pixels / ASCII
+   (after Protocole Botanique by alisonrc_ — the mode tabs + Step)
+   ========================================================================= */
+register('botany',(el)=>{
+  const cv=el.querySelector('canvas');let{ctx,w,h}=fitCanvas(cv);
+  const ptr=pointer(cv);
+  const CH=" .:-=+*#%@";
+  let parts=[],growth=0,t=0;
+  function build(){
+    parts=[];growth=0;
+    const cx=w/2,cy=h*0.42,R=Math.min(w,h)*0.34;
+    const petals=[3,4,5,5,6][(Math.random()*5)|0];
+    const N=Math.max(700,Math.min(2200,Math.round(w*h/120)));
+    const nHead=Math.round(N*0.74);
+    for(let i=0;i<nHead;i++){
+      const th=Math.random()*TAU;
+      const lobe=Math.abs(Math.cos(petals*th));          // rose petals 0..1
+      const rad=R*lobe*Math.sqrt(Math.random());          // fill the lobe
+      parts.push({hx:cx+Math.cos(th)*rad,hy:cy+Math.sin(th)*rad,
+        x:cx+(Math.random()-.5)*8,y:cy+(Math.random()-.5)*8,
+        t:0.18+(rad/R)*0.80,ph:Math.random()*TAU});
+    }
+    const nStem=Math.round(N*0.15);
+    for(let i=0;i<nStem;i++){
+      const u=Math.random();
+      const hy=cy+u*(h-cy-3);
+      const bend=Math.sin(u*Math.PI)*R*0.10;
+      parts.push({hx:cx+bend+(Math.random()-.5)*4,hy,x:cx,y:h,t:0.04,ph:Math.random()*TAU,stem:true});
+    }
+    const nLeaf=N-parts.length;
+    for(let i=0;i<nLeaf;i++){
+      const side=Math.random()<.5?-1:1;
+      const ly=cy+(0.42+Math.random()*0.2)*(h-cy);
+      const ang=side<0?Math.PI*0.86:Math.PI*0.14;
+      const le=Math.random();
+      const wob=(Math.random()-.5)*Math.sin(le*Math.PI)*R*0.30;
+      parts.push({hx:cx+Math.cos(ang)*le*R*0.55+Math.cos(ang+Math.PI/2)*wob,
+        hy:ly+Math.sin(ang)*le*R*0.55+Math.sin(ang+Math.PI/2)*wob,
+        x:cx,y:ly,t:0.06,ph:Math.random()*TAU,stem:true});
+    }
+  }
+  build();
+  const st={raf:0,run(){st.raf=requestAnimationFrame(st.run);
+    t+=0.01;growth=Math.min(1,growth+0.018);
+    const wind=noise3(t*0.5,0,0)-0.5;
+    for(const p of parts){
+      const swayx=wind*(p.stem?5:3)*(1-p.hy/h);
+      const tx=p.hx+swayx+Math.cos(t*1.3+p.ph)*1.1;
+      const ty=p.hy+Math.sin(t*1.1+p.ph)*1.1;
+      const k=0.07*Math.max(0.15,growth);
+      p.x+=(tx-p.x)*k;p.y+=(ty-p.y)*k;
+      if(ptr.on){const dx=p.x-ptr.x,dy=p.y-ptr.y,d2=dx*dx+dy*dy;
+        if(d2<9000){const d=Math.sqrt(d2)+.001;const f=(1-d/95)*5;p.x+=dx/d*f;p.y+=dy/d*f;}}
+    }
+    ctx.fillStyle='#08070b';ctx.fillRect(0,0,w,h);
+    const mode=BOTANY.mode;
+    if(mode==='particles'){
+      ctx.globalCompositeOperation='lighter';
+      for(const p of parts){const c=ramp(p.t);ctx.fillStyle=rgba(c,0.5);
+        ctx.beginPath();ctx.arc(p.x,p.y,p.stem?1.0:1.6,0,TAU);ctx.fill();}
+      ctx.globalCompositeOperation='source-over';
+    }else{
+      const cell=Math.max(4,Math.min(20,BOTANY.step));
+      const cols=Math.max(8,Math.floor(w/cell)),rows=Math.max(6,Math.floor(h/cell));
+      const dn=new Float32Array(cols*rows),cr=new Float32Array(cols*rows),
+            cg=new Float32Array(cols*rows),cb=new Float32Array(cols*rows);
+      for(const p of parts){const gx=(p.x/cell)|0,gy=(p.y/cell)|0;
+        if(gx<0||gx>=cols||gy<0||gy>=rows)continue;
+        const gi=gy*cols+gx;const c=ramp(p.t);dn[gi]++;cr[gi]+=c[0];cg[gi]+=c[1];cb[gi]+=c[2];}
+      if(mode==='pixels'){
+        for(let gi=0;gi<dn.length;gi++){const d=dn[gi];if(d<0.5)continue;
+          const a=Math.min(1,d/3),gx=gi%cols,gy=(gi/cols)|0;
+          ctx.fillStyle='rgba('+((cr[gi]/d)|0)+','+((cg[gi]/d)|0)+','+((cb[gi]/d)|0)+','+(0.25+a*0.7).toFixed(3)+')';
+          ctx.fillRect(gx*cell+0.5,gy*cell+0.5,cell-1,cell-1);}
+      }else{
+        ctx.textBaseline='top';ctx.font=((cell*1.05)|0)+'px "Space Mono",ui-monospace,monospace';
+        for(let gi=0;gi<dn.length;gi++){const d=dn[gi];if(d<0.4)continue;
+          const b=Math.min(1,d/3.2),ci=Math.max(0,Math.min(CH.length-1,Math.round(b*(CH.length-1))));
+          const ch=CH[ci];if(ch===' ')continue;const gx=gi%cols,gy=(gi/cols)|0;
+          ctx.fillStyle='rgba('+((cr[gi]/d)|0)+','+((cg[gi]/d)|0)+','+((cb[gi]/d)|0)+','+(0.45+b*0.5).toFixed(3)+')';
+          ctx.fillText(ch,gx*cell,gy*cell);}
+      }
+    }
+  }};
+  cv.addEventListener('dblclick',build);
+  window.addEventListener('resize',()=>{({ctx,w,h}=fitCanvas(cv));build();});
+  return st;
+});
+
+/* =========================================================================
+   09 · VITRUM — Voronoi crystalline lattice
+   ========================================================================= */
+register('crystal',(el)=>{
+  const cv=el.querySelector('canvas');let{ctx,w,h}=fitCanvas(cv);
+  const ptr=pointer(cv);
+  let seeds=[];
+  function build(){
+    const K=Math.max(14,Math.min(42,Math.round(w*h/12000)));
+    seeds=[];for(let i=0;i<K;i++)seeds.push({x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*0.28,vy:(Math.random()-.5)*0.28,t:Math.random()});
+  }
+  build();
+  const off=document.createElement('canvas');let octx,img,GW,GH;
+  function sizeGrid(){GW=Math.max(40,Math.round(w/6));GH=Math.max(26,Math.round(h/6));
+    off.width=GW;off.height=GH;octx=off.getContext('2d');img=octx.createImageData(GW,GH);}
+  sizeGrid();
+  const AMB=[245,225,182];
+  const st={raf:0,run(){st.raf=requestAnimationFrame(st.run);
+    for(const s of seeds){s.x+=s.vx;s.y+=s.vy;
+      if(s.x<0||s.x>w)s.vx*=-1;if(s.y<0||s.y>h)s.vy*=-1;
+      s.x=Math.max(0,Math.min(w,s.x));s.y=Math.max(0,Math.min(h,s.y));}
+    if(ptr.on){let bi=0,bd=1e9;for(let i=0;i<seeds.length;i++){const dx=seeds[i].x-ptr.x,dy=seeds[i].y-ptr.y,dd=dx*dx+dy*dy;if(dd<bd){bd=dd;bi=i;}}
+      seeds[bi].x+=(ptr.x-seeds[bi].x)*0.05;seeds[bi].y+=(ptr.y-seeds[bi].y)*0.05;}
+    const d=img.data,sx=w/GW,sy=h/GH,diag=Math.min(w,h)*0.4;
+    for(let gy=0;gy<GH;gy++)for(let gx=0;gx<GW;gx++){
+      const px=(gx+0.5)*sx,py=(gy+0.5)*sy;
+      let d1=1e9,d2=1e9,si=0;
+      for(let i=0;i<seeds.length;i++){const dx=px-seeds[i].x,dy=py-seeds[i].y,dd=dx*dx+dy*dy;
+        if(dd<d1){d2=d1;d1=dd;si=i;}else if(dd<d2){d2=dd;}}
+      const i4=(gy*GW+gx)*4,c=ramp(seeds[si].t*0.9+0.05);
+      const shade=0.16+0.52*Math.min(1,Math.sqrt(d1)/diag);
+      let r=c[0]*shade,g=c[1]*shade,b=c[2]*shade;
+      const ev=Math.max(0,1-(Math.sqrt(d2)-Math.sqrt(d1))/6);
+      if(ev>0){r+=(AMB[0]-r)*ev*0.9;g+=(AMB[1]-g)*ev*0.9;b+=(AMB[2]-b)*ev*0.9;}
+      d[i4]=r;d[i4+1]=g;d[i4+2]=b;d[i4+3]=255;
+    }
+    octx.putImageData(img,0,0);
+    ctx.imageSmoothingEnabled=false;ctx.drawImage(off,0,0,w,h);
+  }};
+  cv.addEventListener('dblclick',build);
+  window.addEventListener('resize',()=>{({ctx,w,h}=fitCanvas(cv));sizeGrid();build();});
+  return st;
+});
+
+/* =========================================================================
    Metadata for the expanded view
    ========================================================================= */
 const META={
@@ -723,7 +889,16 @@ const META={
   murmur:{plate:'07',name:'Murmur',title:'The Flock',
     desc:'Three rules per agent — steer toward the average heading of your neighbours, drift toward their centre, and don’t get too close. A hundred of them on a wrapping plane is enough to summon the turning, folding shape of a real murmuration.',
     hint:'Your cursor becomes something the flock follows.',
-    grammar:[['Agents','110 boids'],['Rules','align · cohere · separate'],['Speed','clamped'],['Edges','toroidal wrap']]}
+    grammar:[['Agents','110 boids'],['Rules','align · cohere · separate'],['Speed','clamped'],['Edges','toroidal wrap']]},
+  botany:{plate:'08',name:'Botanica',title:'The Bloom',
+    desc:'A flower grown from particles — petals laid down by a rose curve, a stem, two leaves, all breathing on a coded wind. Then dissolve it: the same organism re-rendered as a field of chunky pixels, or as a grid of ASCII glyphs, the way a plotter or a teletype would have to imagine a flower. Same data, three materials — the question of how little you can render and still see a living thing.',
+    hint:'Switch the render mode and drag Step to change the grain. Cursor parts the petals; double-click to grow a new flower.',
+    modes:true,
+    grammar:[['Structure','rose curve + stem + leaves'],['Population','~1,500 particles'],['Render','particles · pixels · ASCII'],['Glyphs','" .:-=+*#%@"'],['Palette','amber → violet']]},
+  crystal:{plate:'09',name:'Vitrum',title:'The Lattice',
+    desc:'A Voronoi tessellation over a few dozen slowly drifting seeds: every point on the plate belongs to its nearest seed, and where two territories meet, a pale vein is drawn. The result is stained glass that never sets — facets shearing past one another, the quiet violence of a grid that keeps re-deciding its own borders. Order, where the rest of the cabinet is organism.',
+    hint:'Your cursor pulls the nearest seed toward it; double-click to re-grow the lattice.',
+    grammar:[['Model','Voronoi tessellation'],['Seeds','drifting, area-scaled'],['Veins','2nd-nearest edge'],['Render','faceted, hard-edged'],['Palette','full spectrum']]}
 };
 
 /* =========================================================================
@@ -747,6 +922,8 @@ function openModal(key){
   document.getElementById('m-hint').textContent=m.hint||'';
   buildGrammar(m.grammar);
   mSliders.style.display=m.sliders?'grid':'none';
+  document.getElementById('m-modes').style.display=m.modes?'flex':'none';
+  if(m.modes)syncModeUI();
   modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
   if(modalInst){cancelAnimationFrame(modalInst.raf);modalInst=null;}
   mstage.innerHTML='<canvas></canvas>';           // fresh canvas → no stacked listeners
@@ -760,6 +937,13 @@ document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('click',
 document.getElementById('modalClose').addEventListener('click',closeModal);
 document.getElementById('scrim').addEventListener('click',closeModal);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+
+/* Botanica render-mode tabs + Step slider → BOTANY */
+function syncModeUI(){document.querySelectorAll('.modetabs .mt').forEach(b=>b.classList.toggle('active',b.dataset.mode===BOTANY.mode));}
+document.querySelectorAll('.modetabs .mt').forEach(b=>b.addEventListener('click',()=>{BOTANY.mode=b.dataset.mode;syncModeUI();}));
+(()=>{const sl=document.getElementById('sl-step'),lab=document.getElementById('lab-step');
+  sl.value=BOTANY.step;lab.textContent=BOTANY.step;
+  sl.addEventListener('input',()=>{BOTANY.step=parseInt(sl.value);lab.textContent=BOTANY.step;});})();
 
 /* attractor sliders → CLIFF */
 ['a','b','c','d'].forEach(k=>{

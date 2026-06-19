@@ -295,11 +295,23 @@ select.input{appearance:none;cursor:pointer;background-image:url("data:image/svg
 .empty p{font-size:13px;color:var(--muted);margin-top:5px;}
 .empty .btn{margin-top:16px;}
 
-@media (max-width:880px){.side{display:none;}.main{padding:0 22px 120px;}}
-
-@media (max-width:880px) {
-  [style*="position:fixed"][style*="top:0"] { display: flex !important; }
-  .main { padding-top: 56px; }
+/* responsive — a functional mobile bar replaces the hidden sidebar */
+.mobilebar{display:none;}
+@media (max-width:880px){
+  .side{display:none;}
+  .main{padding:0 22px 120px;padding-top:72px;}
+  .mobilebar{display:flex;position:fixed;top:0;left:0;right:0;height:56px;z-index:1000;
+    align-items:center;gap:8px;padding:0 12px;background:var(--glass-bg);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .mobilebar .mb-back{font-size:13px;font-weight:500;color:var(--text);text-decoration:none;
+    padding:8px 10px;border-radius:var(--r-sm);white-space:nowrap;}
+  .mobilebar .mb-switch{display:flex;gap:4px;margin-left:auto;background:var(--surface-sunken);
+    padding:4px;border-radius:var(--r-full);}
+  .mobilebar .mb-switch a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;
+    padding:7px 14px;border-radius:var(--r-full);transition:background .25s var(--spring),color .2s;}
+  .mobilebar .mb-switch a.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow-card);}
+  .mobilebar .mb-theme{flex:none;width:38px;height:38px;border:none;background:none;color:var(--text);
+    font-size:16px;cursor:pointer;border-radius:var(--r-full);}
 }
 </style>
 </head>
@@ -307,7 +319,7 @@ select.input{appearance:none;cursor:pointer;background-image:url("data:image/svg
 <div class="layout">
   <!-- MOBILE HEADER -->
   <div style="display:none;position:fixed;top:0;left:0;right:0;height:56px;background:var(--surface);border-bottom:1px solid var(--border);align-items:center;padding:0 16px;gap:8px;z-index:1000">
-    <a href="../../index.html" style="flex:none;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--text);text-decoration:none;transition:color .2s var(--ease);padding:8px 12px;border-radius:var(--r-sm);margin-right:auto" onmouseover="this.style.background='var(--surface-hover)'" onmouseout="this.style.background='transparent'">← Back</a>
+    <a href="index.html" style="flex:none;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--text);text-decoration:none;transition:color .2s var(--ease);padding:8px 12px;border-radius:var(--r-sm);margin-right:auto" onmouseover="this.style.background='var(--surface-hover)'" onmouseout="this.style.background='transparent'">← Back</a>
     <span style="font-size:14px;font-weight:600;color:var(--text)">Primitives</span>
   </div>
 
@@ -319,7 +331,7 @@ select.input{appearance:none;cursor:pointer;background-image:url("data:image/svg
       <a href="gallery.html">Gallery</a>
       <a class="on" href="primitives.html">Primitives</a>
     </div>
-    <a href="../../index.html" style="display:inline-flex;align-items:center;gap:7px;margin:14px 0 4px;font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s;font-weight:500" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">← The Library</a>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:7px;margin:14px 0 4px;font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s;font-weight:500" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">← The Library</a>
     <div class="navlbl">Actions</div>
     <a class="navlink active" href="#buttons"><span class="dot"></span>Buttons</a>
     <div class="navlbl">Forms</div>

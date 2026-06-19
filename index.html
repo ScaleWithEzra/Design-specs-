@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Design Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>
 :root{
   --canvas:#F4F4F8; --surface:#FFFFFF; --surface-sunken:#EDEDF2; --surface-hover:#F7F7FB;
@@ -119,6 +119,17 @@ body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-
 .cm-dock .ask .mini{width:18px;height:18px;border-radius:99px;background:radial-gradient(circle at 60% 40%,#bfe7cf,#74c08a);}
 .cm-dock .plus{width:32px;height:32px;border-radius:99px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;color:var(--text);}
 
+/* atelier mini preview — a warm editorial cover (hardcoded warm tokens to sample the style) */
+.at-cover{width:238px;background:#FBF7EE;border:1px solid rgba(33,28,22,.14);border-radius:14px;
+  padding:18px 18px 15px;color:#211C16;}
+.at-cover .eb{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#BD5A34;}
+.at-cover h5{font-family:"Fraunces",Georgia,serif;font-size:26px;font-weight:600;line-height:1.04;letter-spacing:-.02em;margin-top:9px;}
+.at-cover h5 em{font-style:italic;color:#BD5A34;}
+.at-cover .rule{height:1px;background:rgba(33,28,22,.16);margin:13px 0;}
+.at-cover .am{display:flex;justify-content:space-between;align-items:center;}
+.at-cover .tg{font-size:9.5px;font-weight:600;color:#BD5A34;background:#F0E0D4;padding:4px 9px;border-radius:99px;}
+.at-cover .pg{font-size:9.5px;color:#9C9080;font-weight:500;}
+
 /* generative art teaser preview */
 .gen{position:absolute;inset:0;background:#0b0b10;}
 .gen::before{content:"";position:absolute;inset:-20%;
@@ -181,7 +192,7 @@ body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-
     <h1>A home for your <span class="em">design styles</span>.</h1>
     <p>Every project — yours or an AI's — starts from your high-quality look instead of a generic default. Pick a style, browse its foundations and components, then drop it into anything.</p>
     <div class="stats">
-      <div class="stat"><div class="n">2</div><div class="k">Styles ready</div></div>
+      <div class="stat"><div class="n">3</div><div class="k">Styles ready</div></div>
       <div class="stat"><div class="n">20<span class="u"> +</span></div><div class="k">Primitives + signatures</div></div>
       <div class="stat"><div class="n">React</div><div class="k">+ Tailwind + Motion</div></div>
     </div>
@@ -234,6 +245,24 @@ body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-
         <p class="desc">The experimental lane — a cabinet of living generative organisms. Flow fields, cell colonies, coral growth, reaction-diffusion, and fractal plants, all drawn in real time.</p>
         <div class="tags"><span class="tag">Generative</span><span class="tag">Canvas · real-time</span><span class="tag">Nature × code</span></div>
         <div class="go"><span class="meta">Experimental lane · Cabinet I</span><span class="cta">Enter the cabinet <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+
+    <!-- ATELIER (live) -->
+    <a class="style live" href="atelier.html">
+      <div class="preview" style="background:#EFE7D7">
+        <div class="at-cover">
+          <div class="eb">Issue 03 · Warm editorial</div>
+          <h5>Set in <em>warm type</em>.</h5>
+          <div class="rule"></div>
+          <div class="am"><span class="tg">Atelier</span><span class="pg">Fraunces + Inter</span></div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="ttl"><h3>Atelier</h3><span class="badge ready">Ready</span></div>
+        <p class="desc">The warm counterweight to Clean &amp; Modern. Cream paper, a serif display, hairline rules instead of elevation, one clay accent, and a calm ink-settle motion.</p>
+        <div class="tags"><span class="tag">Warm editorial</span><span class="tag">Fraunces + Inter</span><span class="tag">Rules over shadow</span></div>
+        <div class="go"><span class="meta">Foundations · primitives</span><span class="cta">Browse style <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
 
